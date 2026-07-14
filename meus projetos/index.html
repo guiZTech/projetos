@@ -1,968 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1 Ano de Namoro — Para Maria Eduarda</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --rose: #c97b8a;
-    --rose-light: #f2d5db;
-    --rose-pale: #fdf0f2;
-    --gold: #b8944a;
-    --gold-light: #f0e4c8;
-    --cream: #fdf8f0;
-    --dark: #2a1f1f;
-    --muted: #7a6060;
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans: 'DM Sans', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--cream);
-    color: var(--dark);
-    font-family: var(--font-sans);
-    overflow-x: hidden;
-    cursor: default;
-  }
-
-  /* ===== CURSOR PERSONALIZADO ===== */
-  .heart-cursor {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    font-size: 14px;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s;
-    opacity: 0;
-  }
-
-  /* ===== PARTÍCULAS ===== */
-  #particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    background: var(--rose-light);
-    opacity: 0;
-    animation: floatUp linear infinite;
-  }
-
-  @keyframes floatUp {
-    0% { transform: translateY(100vh) scale(0); opacity: 0; }
-    10% { opacity: 0.4; }
-    90% { opacity: 0.2; }
-    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-  }
-
-  /* ===== HERO / CAPA ===== */
-  #hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 60%, #f7e8ec 0%, #fdf8f0 70%);
-    z-index: -1;
-  }
-
-  .hero-date {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--rose);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeSlideDown 1s 0.3s ease forwards;
-  }
-
-  .hero-title {
-    font-family: var(--font-serif);
-    font-size: clamp(3rem, 10vw, 7rem);
-    font-weight: 300;
-    line-height: 1;
-    color: var(--dark);
-    opacity: 0;
-    animation: fadeSlideDown 1.2s 0.5s ease forwards;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--rose);
-  }
-
-  .hero-subtitle {
-    font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--muted);
-    margin-top: 1rem;
-    opacity: 0;
-    animation: fadeSlideDown 1.2s 0.8s ease forwards;
-  }
-
-  .hero-divider {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 2.5rem 0;
-    opacity: 0;
-    animation: fadeIn 1s 1.2s ease forwards;
-  }
-
-  .hero-divider span {
-    width: 60px;
-    height: 1px;
-    background: var(--rose-light);
-  }
-
-  .hero-divider .heart {
-    color: var(--rose);
-    font-size: 1.2rem;
-    animation: heartbeat 2s ease infinite;
-  }
-
-  @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    14% { transform: scale(1.3); }
-    28% { transform: scale(1); }
-    42% { transform: scale(1.2); }
-    70% { transform: scale(1); }
-  }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    animation: fadeIn 1s 2s ease forwards;
-  }
-
-  .scroll-hint span {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--rose);
-  }
-
-  .scroll-arrow {
-    width: 20px;
-    height: 20px;
-    border-right: 1px solid var(--rose);
-    border-bottom: 1px solid var(--rose);
-    transform: rotate(45deg);
-    animation: bounceArrow 1.5s ease infinite;
-  }
-
-  @keyframes bounceArrow {
-    0%, 100% { transform: rotate(45deg) translateY(0); }
-    50% { transform: rotate(45deg) translateY(5px); }
-  }
-
-  /* ===== SEÇÕES GERAIS ===== */
-  section {
-    position: relative;
-    z-index: 1;
-  }
-
-  .section-label {
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--rose);
-    margin-bottom: 0.75rem;
-  }
-
-  /* ===== INTRO ===== */
-  #intro {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 7rem 2rem;
-    text-align: center;
-  }
-
-  .intro-quote {
-    font-family: var(--font-serif);
-    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.6;
-    color: var(--dark);
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ===== TIMELINE ===== */
-  #timeline {
-    padding: 5rem 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .timeline-header {
-    text-align: center;
-    margin-bottom: 5rem;
-  }
-
-  .timeline-header h2 {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.2;
-  }
-
-  .timeline-track {
-    position: relative;
-  }
-
-  .timeline-track::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--rose-light) 10%, var(--rose-light) 90%, transparent);
-    transform: translateX(-50%);
-  }
-
-  .timeline-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-    margin-bottom: 5rem;
-    position: relative;
-  }
-
-  .timeline-item:nth-child(odd) {
-    flex-direction: row;
-  }
-
-  .timeline-item:nth-child(even) {
-    flex-direction: row-reverse;
-  }
-
-  .timeline-content {
-    flex: 1;
-    background: white;
-    border: 1px solid var(--rose-light);
-    border-radius: 16px;
-    padding: 2rem;
-    position: relative;
-    box-shadow: 0 4px 30px rgba(201, 123, 138, 0.07);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .timeline-content:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(201, 123, 138, 0.15);
-  }
-
-  .timeline-tag {
-    display: inline-block;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--rose);
-    background: var(--rose-pale);
-    border-radius: 20px;
-    padding: 0.25rem 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .timeline-content h3 {
-    font-family: var(--font-serif);
-    font-size: 1.4rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
-
-  .timeline-content p {
-    font-size: 0.9rem;
-    line-height: 1.8;
-    color: var(--muted);
-  }
-
-  .timeline-dot {
-    position: absolute;
-    left: 50%;
-    top: 1.5rem;
-    transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--rose);
-    border: 3px solid var(--cream);
-    box-shadow: 0 0 0 1px var(--rose-light);
-    z-index: 2;
-    transition: transform 0.3s ease;
-  }
-
-  .timeline-item:hover .timeline-dot {
-    transform: translateX(-50%) scale(1.4);
-  }
-
-  .timeline-spacer { flex: 1; }
-
-  @media (max-width: 680px) {
-    .timeline-track::before { left: 16px; }
-    .timeline-item, .timeline-item:nth-child(even) { flex-direction: column; padding-left: 3rem; }
-    .timeline-dot { left: 16px; top: 1.5rem; }
-    .timeline-spacer { display: none; }
-  }
-
-  /* ===== MESES ===== */
-  #meses {
-    padding: 5rem 2rem;
-    background: white;
-  }
-
-  .meses-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .meses-header h2 {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 300;
-  }
-
-  .meses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .mes-card {
-    border: 1px solid var(--rose-light);
-    border-radius: 16px;
-    padding: 1.75rem;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    cursor: default;
-  }
-
-  .mes-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--rose-pale), white);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 0;
-  }
-
-  .mes-card:hover::before { opacity: 1; }
-  .mes-card:hover { transform: translateY(-6px); }
-  .mes-card > * { position: relative; z-index: 1; }
-
-  .mes-number {
-    font-family: var(--font-serif);
-    font-size: 3.5rem;
-    font-weight: 300;
-    color: var(--rose-light);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s;
-  }
-
-  .mes-card:hover .mes-number { color: var(--rose); }
-
-  .mes-title {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-  }
-
-  .mes-text {
-    font-size: 0.85rem;
-    line-height: 1.7;
-    color: var(--muted);
-  }
-
-  /* ===== CARTA FINAL ===== */
-  #carta {
-    padding: 8rem 2rem;
-    max-width: 760px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .carta-ornament {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    animation: heartbeat 2s ease infinite;
-  }
-
-  .carta-body {
-    font-family: var(--font-serif);
-    font-size: clamp(1.05rem, 2.5vw, 1.4rem);
-    font-weight: 300;
-    line-height: 1.9;
-    color: var(--dark);
-    text-align: left;
-    background: white;
-    border: 1px solid var(--rose-light);
-    border-radius: 24px;
-    padding: 3rem 3.5rem;
-    box-shadow: 0 8px 60px rgba(201, 123, 138, 0.1);
-    position: relative;
-  }
-
-  .carta-body::before {
-    content: '\201C';
-    position: absolute;
-    top: -0.5rem;
-    left: 1.5rem;
-    font-family: var(--font-serif);
-    font-size: 8rem;
-    color: var(--rose-light);
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  .carta-para {
-    margin-bottom: 1.5rem;
-  }
-
-  .carta-para:last-child { margin-bottom: 0; }
-
-  .carta-highlight {
-    color: var(--rose);
-    font-style: italic;
-  }
-
-  .carta-assinatura {
-    text-align: right;
-    margin-top: 2.5rem;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--muted);
-  }
-
-  /* ===== FINAL / PEDIDO ===== */
-  #final {
-    padding: 7rem 2rem 10rem;
-    text-align: center;
-    background: radial-gradient(ellipse at center, #f7e8ec 0%, var(--cream) 70%);
-  }
-
-  .final-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 300;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    color: var(--dark);
-  }
-
-  .final-title em {
-    font-style: italic;
-    color: var(--rose);
-  }
-
-  .final-subtitle {
-    font-family: var(--font-serif);
-    font-size: 1.2rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--muted);
-    max-width: 500px;
-    margin: 0 auto 3rem;
-    line-height: 1.7;
-  }
-
-  .final-nome {
-    font-family: var(--font-serif);
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--rose);
-    margin-top: 2rem;
-  }
-
-  /* ===== CONTADOR ===== */
-  .counter-wrap {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 3rem 0;
-    flex-wrap: wrap;
-  }
-
-  .counter-box {
-    background: white;
-    border: 1px solid var(--rose-light);
-    border-radius: 16px;
-    padding: 1.2rem 1.8rem;
-    min-width: 100px;
-    text-align: center;
-  }
-
-  .counter-num {
-    font-family: var(--font-serif);
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--rose);
-    line-height: 1;
-  }
-
-  .counter-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.3rem;
-  }
-
-  /* ===== ANIMAÇÕES ===== */
-  @keyframes fadeSlideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  /* ===== FLORES FLUTUANTES ===== */
-  .petal {
-    position: fixed;
-    pointer-events: none;
-    z-index: 0;
-    font-size: 1rem;
-    opacity: 0;
-    animation: petalFall linear infinite;
-  }
-
-  @keyframes petalFall {
-    0% { transform: translateY(-5vh) rotate(0deg); opacity: 0; }
-    5% { opacity: 0.6; }
-    95% { opacity: 0.3; }
-    100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
-  }
-
-  /* ===== BOTÃO PLAY MÚSICA ===== */
-  .music-btn {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 100;
-    background: white;
-    border: 1px solid var(--rose-light);
-    border-radius: 50%;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(201,123,138,0.2);
-    transition: transform 0.2s;
-    font-size: 1.3rem;
-  }
-
-  .music-btn:hover { transform: scale(1.1); }
-
-  @media (max-width: 600px) {
-    .carta-body { padding: 2rem 1.5rem; }
-    .carta-body::before { font-size: 5rem; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Clicker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilo/style.css">
 </head>
 <body>
+    <main class="app-shell">
+        <section class="hero-panel" aria-labelledby="gameTitle">
+            <div class="scanlines" aria-hidden="true"></div>
 
-<!-- Cursor coração -->
-<div class="heart-cursor" id="heartCursor">♡</div>
+            <header class="top-bar">
+                <div>
+                    <p class="eyebrow">Arcade mode</p>
+                    <h1 id="gameTitle">Pixel Click</h1>
+                    <p class="subtitle">Clique, encha a fúria, desbloqueie upgrades e transforme cada pixel em moedas.</p>
+                </div>
+                <div class="coin-chip" aria-label="Moedas atuais">
+                    <span>◆</span>
+                    <strong id="counter">0</strong>
+                </div>
+            </header>
 
-<!-- Partículas de fundo -->
-<div id="particles"></div>
+            <section class="stats" aria-label="Status do jogador">
+                <article class="stat-box primary-stat">
+                    <span>Moedas</span>
+                    <strong id="counterMirror">0</strong>
+                </article>
+                <article class="stat-box">
+                    <span>Multiplicador</span>
+                    <strong id="multiplier">x1</strong>
+                </article>
+                <article class="stat-box">
+                    <span>Velocidade</span>
+                    <strong id="speedValue">x1.0</strong>
+                </article>
+            </section>
 
-<!-- Botão música (decorativo) -->
-<div class="music-btn" id="musicBtn" title="♪" onclick="toggleMusic()">🎵</div>
+            <section class="click-stage" aria-label="Área principal de clique">
+                <div class="combo-section">
+                    <div class="combo-header">
+                        <span>Fúria de clique</span>
+                        <strong id="comboValue">0/100</strong>
+                    </div>
+                    <div class="combo-bar" id="comboBar" aria-hidden="true">
+                        <div class="combo-fill" id="comboFill"></div>
+                    </div>
+                    <div id="furyStatus" class="fury-status">Pronto para carregar a fúria</div>
+                </div>
 
-<!-- ========== HERO ========== -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <p class="hero-date">3 de junho de 2025 — 3 de junho de 2026</p>
-  <h1 class="hero-title">Um <em>ano</em><br>de nós</h1>
-  <p class="hero-subtitle">Para Maria Eduarda, com todo o meu amor</p>
-  <div class="hero-divider">
-    <span></span>
-    <span class="heart">♥</span>
-    <span></span>
-  </div>
-  <div class="scroll-hint">
-    <span>nossa história</span>
-    <div class="scroll-arrow"></div>
-  </div>
-</section>
+                <div id="achievement" class="achievement" aria-live="polite"></div>
 
-<!-- ========== INTRO ========== -->
-<section id="intro">
-  <div class="reveal">
-    <p class="section-label">O início de tudo</p>
-    <p class="intro-quote">"Eu estava em um shopping com amigos e, de repente, avistei você… meu coração se encantou como nunca tinha se encantado antes."</p>
-  </div>
-</section>
+                <div class="click-area" id="clickArea">
+                    <button id="addPointBtn" type="button">
+                        <span>Clique aqui</span>
+                        <small>+ moedas</small>
+                    </button>
+                    <div class="pixel-burst" id="pixelBurst" aria-hidden="true"></div>
+                </div>
+            </section>
 
-<!-- ========== TIMELINE ========== -->
-<section id="timeline">
-  <div class="timeline-header reveal">
-    <p class="section-label">Nossa jornada</p>
-    <h2>Os momentos<br><em style="font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--rose);">que nos fizeram nós</em></h2>
-  </div>
+            <div class="game-actions" aria-label="Ações do jogo">
+                <button id="saveBtn" class="game-action-btn" type="button">Salvar progresso</button>
+                <button id="exportBtn" class="game-action-btn" type="button">Exportar JSON</button>
+            </div>
 
-  <div class="timeline-track">
+            <nav class="shop-tabs" role="tablist" aria-label="Seções da loja">
+                <button class="shop-tab active" id="upgradesTab" type="button">Upgrades</button>
+                <button class="shop-tab" id="skinsTab" type="button">Skins</button>
+                <button class="shop-tab" id="achievementsTab" type="button">Conquistas</button>
+            </nav>
 
-    <div class="timeline-item reveal">
-      <div class="timeline-content">
-        <span class="timeline-tag">O primeiro olhar</span>
-        <h3>O shopping, a escola e a surpresa do destino</h3>
-        <p>Um andar meigo, um olhar doce e um certo mistério. Eu não sabia quem você era, mas meu coração já tinha decidido. E quando te vi na escola… parecia que o destino estava me dizendo algo.</p>
-      </div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-spacer"></div>
-    </div>
+            <section class="shop panel-section" id="upgradesSection">
+                <div class="shop-header">
+                    <p class="eyebrow">Loja</p>
+                    <h2>Upgrades</h2>
+                    <p>Cards compactos para aumentar o ganho por clique e acelerar sua progressão.</p>
+                </div>
+                <div id="shopCards" class="shop-cards"></div>
+            </section>
 
-    <div class="timeline-item reveal">
-      <div class="timeline-spacer"></div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <span class="timeline-tag">A coragem</span>
-        <h3>"Esse filme é bom?" — o começo da nossa história</h3>
-        <p>De uma simples pergunta no Instagram, nasceram conversas, risos e uma amizade que virou muito mais. Você me pedia filmes, eu ia me soltando aos poucos... e sem perceber, você tomava conta da minha cabeça.</p>
-      </div>
-    </div>
+            <section class="skin-shop panel-section" id="skinShop" hidden>
+                <div class="shop-header">
+                    <p class="eyebrow">Visual</p>
+                    <h2>Skins</h2>
+                    <p>Troque a paleta pixel art conforme desbloqueia novas conquistas.</p>
+                </div>
+                <div id="skinOptions" class="skin-options"></div>
+            </section>
 
-    <div class="timeline-item reveal">
-      <div class="timeline-content">
-        <span class="timeline-tag">O recreio</span>
-        <h3>Os recreios que foram virando magia</h3>
-        <p>Fui empurrado para a sua sala, envergonhado dos dois lados, mas foi tranquilo, relaxante e encantador. Conforme os dias passavam, os recreios viravam momentos que eu queria que nunca acabassem.</p>
-      </div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-spacer"></div>
-    </div>
+            <section class="achievement-section panel-section" id="achievementSection" hidden>
+                <div class="shop-header">
+                    <p class="eyebrow">Metas</p>
+                    <h2>Conquistas</h2>
+                    <p>Acompanhe marcos importantes do save.</p>
+                </div>
+                <div id="achievementList" class="achievement-list"></div>
+                <button id="resetCycleBtn" class="game-action-btn reset-cycle-btn" type="button" hidden>Reiniciar ciclo</button>
+            </section>
+        </section>
+    </main>
 
-    <div class="timeline-item reveal">
-      <div class="timeline-spacer"></div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <span class="timeline-tag">Minecraft: O Filme</span>
-        <h3>O nosso primeiro encontro — e o coração quase parou</h3>
-        <p>Pintei o cabelo, coloquei roupa bonita, perfume. Me preparei tanto. Te avistei vindo em minha direção e tudo entrou em câmera lenta. O filme foi mais ou menos… mas você fez ele ser incrível.</p>
-      </div>
-    </div>
-
-    <div class="timeline-item reveal">
-      <div class="timeline-content">
-        <span class="timeline-tag">Thunderbolts</span>
-        <h3>Segurei sua mão — e congelei por dentro</h3>
-        <p>Suei bastante, sua mão chacoalhava, mas precisava fazer aquilo. "Só na escola, pelo visto." Aquela frase me congelou… mas nasceu ali uma vontade gigante de mudar e me esforçar de verdade.</p>
-      </div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-spacer"></div>
-    </div>
-
-    <div class="timeline-item reveal">
-      <div class="timeline-spacer"></div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <span class="timeline-tag">3 de junho</span>
-        <h3>O dia em que finalmente te pedi em namoro</h3>
-        <p>Esperava ouvir um "não"… até escutar um "sim". Entrei em choque, mas foi incrível. Eu, que sempre dizia que nunca iria namorar, estava completamente apaixonado por você.</p>
-      </div>
-    </div>
-
-    <div class="timeline-item reveal">
-      <div class="timeline-content">
-        <span class="timeline-tag">Lilo & Stitch</span>
-        <h3>O beijinho na bochecha e a aliança</h3>
-        <p>Te entreguei algo muito valioso para mim — e estraguei a surpresa por culpa da loja de cebola kkkkk. Mas quando você veio em minha direção toda arrumada, parecendo um anjo… me emocionei muito.</p>
-      </div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-spacer"></div>
-    </div>
-
-    <div class="timeline-item reveal">
-      <div class="timeline-spacer"></div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <span class="timeline-tag">Sob a chuva</span>
-        <h3>Muitas voltas por Capão enquanto chovia</h3>
-        <p>Peguei na sua mão, te abracei, coloquei a cabeça no seu ombro. Senti que tudo estava dando certo. Foi simplesmente mágico e cheio de calor no peito.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ========== MESES ========== -->
-<section id="meses">
-  <div class="meses-header reveal">
-    <p class="section-label">Mês a mês</p>
-    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,6vw,3.5rem); font-weight: 300;">Cada aniversário,<br><em style="font-style: italic; color: var(--rose);">uma nova lembrança</em></h2>
-  </div>
-
-  <div class="meses-grid">
-    <div class="mes-card reveal">
-      <div class="mes-number">01</div>
-      <div class="mes-title">O começo tímido</div>
-      <p class="mes-text">Começamos de forma tímida, sem saber ao certo como nos abrir. Mas era especial do mesmo jeito.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">02</div>
-      <div class="mes-title">Crescendo juntos</div>
-      <p class="mes-text">Cada conversa nos aproximava mais. Estava descobrindo uma versão minha que eu nem sabia que existia.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">03</div>
-      <div class="mes-title">A primeira cartinha</div>
-      <p class="mes-text">Recebi a minha primeira cartinha. Me emocionei demais. Aquilo valeu mais do que qualquer presente.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">04</div>
-      <div class="mes-title">Meu lado mais sensível</div>
-      <p class="mes-text">Chorei, mostrei meu lado sentimental de verdade… e você não saiu do meu lado. Dormi na sua casa pela primeira vez.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">05</div>
-      <div class="mes-title">A bola de neve</div>
-      <p class="mes-text">Uma mensagem mal interpretada virou uma crise… mas nos fortaleceu. O que parecia uma queda, foi um passo maior.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">06</div>
-      <div class="mes-title">Zootopia 2 e risadas</div>
-      <p class="mes-text">Um momento tranquilo, fotos fofas, risadas o dia inteiro. Esses momentos simples são os que mais guardo.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">07</div>
-      <div class="mes-title">Descobrindo a vida</div>
-      <p class="mes-text">Uma fase mais crítica, aprendendo a resolver as coisas da melhor forma. Crescemos muito nesse mês.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">08</div>
-      <div class="mes-title">O pedido de desculpas</div>
-      <p class="mes-text">Um dia dolorido, mas também um alívio enorme. Finalmente nos resolvemos de verdade. Um recomeço.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">09</div>
-      <div class="mes-title">Felicidade gigantesca</div>
-      <p class="mes-text">Uma comemoração simples, mas com uma alegria que transbordava. Só por estarmos juntos, já era perfeito.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">10</div>
-      <div class="mes-title">A viagem inesquecível</div>
-      <p class="mes-text">Servimos a Deus juntos. Choramos de emoção e alegria. Moments que só nossos — no Airbnb, rindo até não aguentar. Surreal.</p>
-    </div>
-    <div class="mes-card reveal">
-      <div class="mes-number">11</div>
-      <div class="mes-title">A xícara favorita</div>
-      <p class="mes-text">Simples, mas especial pela sua companhia e pela xícara linda que recebi. Até hoje, é a minha favorita.</p>
-    </div>
-    <div class="mes-card reveal" style="background: linear-gradient(135deg, #f7e0e5, white); border-color: var(--rose);">
-      <div class="mes-number" style="color: var(--rose);">12</div>
-      <div class="mes-title" style="color: var(--rose);">Um ano de nós ♥</div>
-      <p class="mes-text">A melhor parte da minha história sempre foi você. E hoje, depois de tudo, eu ainda só tenho olhos para você.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ========== CARTA FINAL ========== -->
-<section id="carta">
-  <div class="reveal">
-    <p class="section-label">Do fundo do coração</p>
-  </div>
-  <div class="reveal carta-body">
-    <p class="carta-para">Amor da minha vida, recapitulei tudo isso para te mostrar que, independentemente de tudo, <span class="carta-highlight">você sempre esteve ao meu lado e nunca saiu. Mesmo nos momentos difíceis.</span></p>
-    <p class="carta-para">Nesse 1 ano de namoro, eu não me arrependo de nada. Não me arrependo de ter te conhecido, não me arrependo de ter dado o meu máximo — e continuarei dando.</p>
-    <p class="carta-para">Você me ensinou a amar, me mostrou o caminho e o rumo da felicidade. <span class="carta-highlight">Nunca pensei que te amaria tanto… mas te amo de uma forma inexplicável.</span></p>
-    <p class="carta-para">Você é linda, inteligente, doce, com um jeitinho único. É radiante, irresistível, bondosa, esforçada e humorada. Mas, mesmo com todo esse texto, ainda não é o suficiente para demonstrar tudo o que sinto.</p>
-    <p class="carta-para">Eu sei que há muito pela frente, mas quero apenas estar com você. Por mais que possa haver barreiras, distância ou problemas, <span class="carta-highlight">é com você que quero passar o resto da minha vida.</span></p>
-    <p class="carta-para">Obrigado por tudo que fez e faz. Eu sou completamente apaixonado e doidinho por você.</p>
-    <p class="carta-para" style="font-style: italic; color: var(--rose); font-size: 1.2em;">Case-se comigo. Me dê a chance de te cuidar, proteger e amar para sempre. ♥</p>
-    <div class="carta-assinatura">Com amor eterno,<br>seu namorado 🤍</div>
-  </div>
-</section>
-
-<!-- ========== FINAL ========== -->
-<section id="final">
-  <div class="reveal">
-    <div class="carta-ornament">♥</div>
-    <h2 class="final-title">Eu te amo,<br><em>Maria Eduarda</em></h2>
-    <p class="final-subtitle">Um ano se passou, e cada dia ao seu lado foi uma dádiva. Obrigado por existir, por ser quem você é, por estar comigo.</p>
-  </div>
-
-  <div class="counter-wrap reveal">
-    <div class="counter-box">
-      <div class="counter-num" id="c-dias">365</div>
-      <div class="counter-label">Dias</div>
-    </div>
-    <div class="counter-box">
-      <div class="counter-num" id="c-horas">8760</div>
-      <div class="counter-label">Horas</div>
-    </div>
-    <div class="counter-box">
-      <div class="counter-num" id="c-min">525600</div>
-      <div class="counter-label">Minutos</div>
-    </div>
-    <div class="counter-box">
-      <div class="counter-num">∞</div>
-      <div class="counter-label">De amor</div>
-    </div>
-  </div>
-
-  <div class="reveal final-nome">
-    Maria Eduarda Rodrigues Gomes Cardoso
-  </div>
-</section>
-
-<script>
-// ===== CURSOR CORAÇÃO =====
-const cursor = document.getElementById('heartCursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  cursor.style.opacity = '1';
-});
-document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-
-// ===== PARTÍCULAS =====
-function createParticles() {
-  const container = document.getElementById('particles');
-  for (let i = 0; i < 18; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random() * 8 + 4;
-    p.style.cssText = `
-      width: ${size}px; height: ${size}px;
-      left: ${Math.random() * 100}%;
-      animation-duration: ${Math.random() * 15 + 12}s;
-      animation-delay: ${Math.random() * 15}s;
-    `;
-    container.appendChild(p);
-  }
-}
-createParticles();
-
-// ===== PÉTALAS =====
-const petalSymbols = ['✿', '❀', '✾', '❁', '♡'];
-function createPetals() {
-  for (let i = 0; i < 10; i++) {
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.textContent = petalSymbols[Math.floor(Math.random() * petalSymbols.length)];
-    p.style.cssText = `
-      left: ${Math.random() * 100}%;
-      color: hsl(${340 + Math.random() * 20}, 60%, ${70 + Math.random() * 15}%);
-      animation-duration: ${Math.random() * 12 + 10}s;
-      animation-delay: ${Math.random() * 12}s;
-      font-size: ${Math.random() * 10 + 10}px;
-    `;
-    document.body.appendChild(p);
-  }
-}
-createPetals();
-
-// ===== SCROLL REVEAL =====
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), 100);
-    }
-  });
-}, { threshold: 0.12 });
-reveals.forEach(el => observer.observe(el));
-
-// ===== CONTADOR =====
-function updateCounter() {
-  const start = new Date('2025-06-03T00:00:00');
-  const now = new Date();
-  const diff = Math.floor((now - start) / 1000);
-  const days = Math.floor(diff / 86400);
-  const hours = Math.floor(diff / 3600);
-  const minutes = Math.floor(diff / 60);
-  document.getElementById('c-dias').textContent = days.toLocaleString('pt-BR');
-  document.getElementById('c-horas').textContent = hours.toLocaleString('pt-BR');
-  document.getElementById('c-min').textContent = minutes.toLocaleString('pt-BR');
-}
-updateCounter();
-setInterval(updateCounter, 60000);
-
-// ===== MÚSICA (botão decorativo) =====
-let musicPlaying = false;
-function toggleMusic() {
-  musicPlaying = !musicPlaying;
-  document.getElementById('musicBtn').textContent = musicPlaying ? '🎶' : '🎵';
-}
-
-// ===== CLICK EFEITO CORAÇÃO =====
-document.addEventListener('click', (e) => {
-  const heart = document.createElement('div');
-  heart.textContent = '♥';
-  heart.style.cssText = `
-    position: fixed;
-    left: ${e.clientX}px;
-    top: ${e.clientY}px;
-    pointer-events: none;
-    z-index: 9998;
-    color: var(--rose);
-    font-size: 1.2rem;
-    transform: translate(-50%, -50%);
-    animation: heartPop 0.8s ease forwards;
-  `;
-  document.head.insertAdjacentHTML('beforeend', `<style>@keyframes heartPop{0%{opacity:1;transform:translate(-50%,-50%) scale(0)}40%{opacity:1;transform:translate(-50%,-80%) scale(1.3)}100%{opacity:0;transform:translate(-50%,-150%) scale(0.8)}}</style>`);
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 800);
-});
-</script>
+    <script src="script/script.js"></script>
 </body>
 </html>

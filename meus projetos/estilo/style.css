@@ -1,0 +1,651 @@
+:root {
+    color-scheme: dark;
+    --bg: #070914;
+    --bg-grid: rgba(255, 255, 255, 0.035);
+    --panel: #111827;
+    --panel-soft: #1f2937;
+    --panel-strong: #020617;
+    --accent: #f59e0b;
+    --accent-2: #facc15;
+    --accent-glow: rgba(245, 158, 11, 0.45);
+    --button-bg: #22c55e;
+    --button-text: #052e16;
+    --text: #f8fafc;
+    --dim: #cbd5e1;
+    --muted: #94a3b8;
+    --danger: #fb7185;
+    --success: #34d399;
+    --border-dark: #020617;
+    --shadow: rgba(0, 0, 0, 0.42);
+    --pixel-size: 4px;
+}
+
+body[data-skin="neon"] {
+    --bg: #050816;
+    --panel: #101b3a;
+    --panel-soft: #18254b;
+    --accent: #38bdf8;
+    --accent-2: #a78bfa;
+    --accent-glow: rgba(56, 189, 248, 0.48);
+    --button-bg: #7c3aed;
+    --button-text: #f8fafc;
+    --danger: #fb7185;
+    --success: #22d3ee;
+}
+
+body[data-skin="retro"] {
+    --bg: #23120b;
+    --panel: #3d2414;
+    --panel-soft: #4b2e11;
+    --accent: #f59e0b;
+    --accent-2: #fde68a;
+    --accent-glow: rgba(251, 191, 36, 0.4);
+    --button-bg: #facc15;
+    --button-text: #3f1d09;
+    --danger: #fb923c;
+    --success: #bef264;
+}
+
+body[data-skin="gold"] {
+    --bg: #241504;
+    --panel: #4a2d0a;
+    --panel-soft: #664211;
+    --accent: #fbbf24;
+    --accent-2: #fde68a;
+    --accent-glow: rgba(253, 230, 138, 0.45);
+    --button-bg: #f59e0b;
+    --button-text: #3f1d09;
+}
+
+body[data-skin="emerald"] {
+    --bg: #06160f;
+    --panel: #103424;
+    --panel-soft: #174b36;
+    --accent: #34d399;
+    --accent-2: #a7f3d0;
+    --accent-glow: rgba(52, 211, 153, 0.42);
+    --button-bg: #10b981;
+    --button-text: #052e16;
+}
+
+body[data-skin="midnight"] {
+    --bg: #020617;
+    --panel: #0f172a;
+    --panel-soft: #1e293b;
+    --accent: #818cf8;
+    --accent-2: #c7d2fe;
+    --accent-glow: rgba(129, 140, 248, 0.42);
+    --button-bg: #6366f1;
+    --button-text: #f8fafc;
+}
+
+body[data-skin="cyber"] {
+    --bg: #030712;
+    --panel: #0f172e;
+    --panel-soft: #111c3a;
+    --accent: #22d3ee;
+    --accent-2: #67e8f9;
+    --accent-glow: rgba(34, 211, 238, 0.42);
+    --button-bg: #0ea5e9;
+    --button-text: #f8fafc;
+}
+
+body[data-skin="ember"] {
+    --bg: #1d0906;
+    --panel: #3b1309;
+    --panel-soft: #5a1a10;
+    --accent: #fb923c;
+    --accent-2: #fecaca;
+    --accent-glow: rgba(251, 146, 60, 0.42);
+    --button-bg: #ef4444;
+    --button-text: #fff7ed;
+}
+
+body[data-skin="holo"] {
+    --bg: #14051d;
+    --panel: #27143b;
+    --panel-soft: #3b1857;
+    --accent: #e879f9;
+    --accent-2: #f0abfc;
+    --accent-glow: rgba(232, 121, 249, 0.42);
+    --button-bg: #a855f7;
+    --button-text: #fdf4ff;
+}
+
+body[data-skin="numeros"] {
+    --bg: #050816;
+    --panel: #0f172a;
+    --panel-soft: #111c3a;
+    --accent: #38bdf8;
+    --accent-2: #22d3ee;
+    --button-bg: #818cf8;
+    --button-text: #020617;
+}
+
+body[data-skin="minecraft"] {
+    --bg: #1e3a2b;
+    --panel: #2f5d3c;
+    --panel-soft: #3f6f49;
+    --accent: #7dd3a8;
+    --accent-2: #d9f99d;
+    --button-bg: #84cc16;
+    --button-text: #1a2e13;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 20% 15%, var(--accent-glow), transparent 28rem),
+        radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.18), transparent 20rem),
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        var(--bg);
+    background-size: auto, auto, 20px 20px, 20px 20px, auto;
+    image-rendering: pixelated;
+}
+
+button {
+    font: inherit;
+}
+
+.app-shell {
+    width: min(100%, 980px);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 28px 16px;
+    display: grid;
+    place-items: center;
+}
+
+.hero-panel {
+    position: relative;
+    width: 100%;
+    padding: clamp(18px, 4vw, 32px);
+    overflow: hidden;
+    border: var(--pixel-size) solid var(--accent);
+    background: linear-gradient(145deg, var(--panel), var(--panel-strong));
+    box-shadow:
+        0 0 0 var(--pixel-size) var(--border-dark),
+        0 18px 0 var(--shadow),
+        0 0 36px var(--accent-glow);
+}
+
+.hero-panel::before,
+.hero-panel::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+}
+
+.hero-panel::before {
+    inset: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.12);
+}
+
+.hero-panel::after {
+    width: 180px;
+    height: 180px;
+    right: -70px;
+    top: -70px;
+    background: repeating-conic-gradient(from 45deg, var(--accent) 0 25%, transparent 0 50%);
+    opacity: 0.1;
+    animation: pixelSpin 8s steps(8) infinite;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 5px);
+    mix-blend-mode: screen;
+}
+
+.top-bar,
+.stats,
+.click-stage,
+.game-actions,
+.shop-tabs,
+.panel-section {
+    position: relative;
+    z-index: 1;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    color: var(--accent);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    margin-bottom: 10px;
+    color: var(--accent-2);
+    font-size: clamp(24px, 6vw, 46px);
+    line-height: 1.12;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0 var(--border-dark), 0 0 20px var(--accent-glow);
+}
+
+.subtitle,
+.shop-header p:not(.eyebrow) {
+    margin-bottom: 0;
+    color: var(--dim);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.coin-chip {
+    min-width: 150px;
+    padding: 14px;
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    border: 3px solid var(--accent-2);
+    background: var(--panel-soft);
+    box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.24);
+}
+
+.coin-chip span {
+    color: var(--accent-2);
+    animation: coinPulse 1s steps(2) infinite;
+}
+
+.coin-chip strong {
+    font-size: 20px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.stat-box,
+.panel-section,
+.click-stage {
+    border: 3px solid var(--accent);
+    background: rgba(15, 23, 42, 0.62);
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.06);
+}
+
+.stat-box {
+    padding: 14px;
+    min-height: 88px;
+}
+
+.stat-box span {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+.stat-box strong {
+    color: var(--text);
+    font-size: clamp(16px, 3vw, 22px);
+}
+
+.primary-stat {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.24), rgba(34, 197, 94, 0.12));
+}
+
+.click-stage {
+    padding: 16px;
+    margin-bottom: 14px;
+}
+
+.combo-section {
+    text-align: left;
+}
+
+.combo-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--accent-2);
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.combo-bar {
+    width: 100%;
+    height: 20px;
+    padding: 3px;
+    border: 3px solid var(--accent);
+    background: var(--panel-strong);
+}
+
+.combo-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--button-bg), var(--accent-2));
+    box-shadow: 0 0 12px var(--accent-glow);
+    transition: width 0.18s steps(6), filter 0.18s ease;
+}
+
+.combo-fill.fury-active {
+    filter: saturate(1.5) brightness(1.2);
+    animation: furyFlash 0.45s steps(2) infinite;
+}
+
+.fury-status {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.fury-status.active {
+    color: var(--danger);
+}
+
+.achievement {
+    min-height: 42px;
+    margin: 14px 0;
+    padding: 12px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--accent-2);
+    background: rgba(250, 204, 21, 0.14);
+    color: #ecfccb;
+    font-size: 10px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: 0.24s ease;
+}
+
+.achievement.show {
+    opacity: 1;
+    transform: translateY(0);
+    animation: achievementPop 0.8s steps(5);
+}
+
+.click-area {
+    position: relative;
+}
+
+#addPointBtn {
+    width: 100%;
+    min-height: 118px;
+    display: grid;
+    place-items: center;
+    gap: 8px;
+    border: 4px solid var(--accent-2);
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 38%),
+        var(--button-bg);
+    color: var(--button-text);
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.25), 0 10px 0 var(--shadow);
+}
+
+#addPointBtn span {
+    font-size: clamp(15px, 4vw, 24px);
+}
+
+#addPointBtn small {
+    font-size: 9px;
+}
+
+#addPointBtn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+}
+
+#addPointBtn:active {
+    transform: translateY(6px);
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.25), 0 4px 0 var(--shadow);
+}
+
+#addPointBtn.clicked {
+    animation: buttonPulse 0.2s steps(2);
+}
+
+.pixel-burst {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.pixel-burst-piece {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: var(--accent-2);
+    border: 1px solid var(--text);
+    opacity: 0;
+}
+
+.game-actions,
+.shop-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.game-actions {
+    margin-bottom: 14px;
+}
+
+.game-action-btn,
+.shop-tab,
+.skin-option,
+.shop-card button {
+    border: 3px solid var(--accent);
+    background: var(--panel-soft);
+    color: var(--text);
+    padding: 12px 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.22);
+}
+
+.game-action-btn {
+    flex: 1;
+    min-width: 150px;
+    font-size: 9px;
+}
+
+.shop-tabs {
+    margin: 16px 0 0;
+}
+
+.shop-tab {
+    flex: 1;
+    min-width: 150px;
+    font-size: 10px;
+}
+
+.shop-tab.active,
+.skin-option.active {
+    background: var(--accent-2);
+    color: #111827;
+}
+
+.panel-section {
+    margin-top: 12px;
+    padding: 18px;
+    text-align: left;
+}
+
+.shop-header {
+    margin-bottom: 16px;
+}
+
+.shop-header h2 {
+    margin-bottom: 6px;
+    color: var(--accent-2);
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.shop-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.shop-card {
+    padding: 14px;
+    border: 3px solid var(--accent);
+    background: var(--panel-soft);
+}
+
+.shop-card.bought,
+.achievement-item.unlocked {
+    border-color: var(--success);
+    background: rgba(52, 211, 153, 0.14);
+}
+
+.shop-card h3 {
+    margin-bottom: 8px;
+    color: var(--accent-2);
+    font-size: 12px;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.shop-card p,
+.achievement-item {
+    color: var(--dim);
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+.shop-card .cost {
+    display: inline-block;
+    margin: 8px 0 12px;
+    color: var(--accent-2);
+    font-size: 10px;
+}
+
+.shop-card button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.skin-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.skin-option {
+    min-width: 126px;
+    font-size: 9px;
+}
+
+.achievement-list {
+    display: grid;
+    gap: 10px;
+}
+
+.achievement-item {
+    padding: 12px;
+    border: 2px solid var(--accent);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.reset-cycle-btn {
+    width: 100%;
+    margin-top: 12px;
+    background: linear-gradient(90deg, var(--accent-2), var(--danger));
+    color: #111827;
+}
+
+@keyframes pixelSpin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes coinPulse {
+    50% { transform: scale(1.25); }
+}
+
+@keyframes furyFlash {
+    50% { background: var(--danger); }
+}
+
+@keyframes achievementPop {
+    50% { transform: translateY(-4px) scale(1.02); }
+}
+
+@keyframes buttonPulse {
+    50% { transform: scale(1.02); }
+}
+
+@keyframes burstPiece {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(0.25);
+    }
+}
+
+@media (max-width: 720px) {
+    .top-bar,
+    .stats,
+    .shop-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .top-bar {
+        display: grid;
+    }
+
+    .coin-chip {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-shell {
+        padding: 14px 10px 24px;
+    }
+
+    .hero-panel {
+        box-shadow: 0 0 0 var(--pixel-size) var(--border-dark), 0 10px 0 var(--shadow);
+    }
+
+    .shop-tab,
+    .game-action-btn,
+    .skin-option {
+        min-width: 100%;
+    }
+}
